@@ -1,0 +1,21 @@
+{
+  "name": "init-nodejs",
+  "version": "1.0.0",
+  "description": "Initiation de base à nodeJs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "initiation",
+    "server"
+  ],
+  "author": "plarrat",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15"
+  }
+}
