@@ -1,12 +1,12 @@
 module.exports = [
   {
     "id": 1,
-    "name": "Leanne Graham",
+    "name": "Indiana Jones",
     "username": "Bret",
     "email": "Sincere@april.biz",
-    "address": {
-      "street": "Kulas Light",
-      "suite": "Apt. 556",
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "actors": {
       "city": "Gwenborough",
       "zipcode": "92998-3874",
       "geo": {
