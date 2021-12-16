@@ -1,7 +1,19 @@
 const express = require("express")
 const app = express()
-const users = require("./modules/users")
+const users = require("./schemas/users")
 const cors = require("cors")
+const mongoose = require("mongoose")
+const userModel = require("./schemas/users")
+
+const db = mongoose.connect("mongodb://localhost/initMongo",{useNewUrlParser:true})
+mongoose.connection.on("open",function(){
+    console.log("Connexion MongoDB reussie")
+    userModel.create({
+        nom:"Uzumaki",
+        prenom:"Naruto",
+        age:20
+    })
+})
 
 app.use(cors())
 
