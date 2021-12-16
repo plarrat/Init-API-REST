@@ -3,6 +3,8 @@ const app = express()
 const cors = require("cors")
 const mongoose = require("mongoose")
 const userModel = require("./schemas/users")
+const bodyParser = require("body-parser")
+const categoryModel = require("./schemas/category")
 
 const db = mongoose.connect("mongodb://localhost/initMongo",{useNewUrlParser:true})
 mongoose.connection.on("open",function(){
@@ -15,6 +17,8 @@ mongoose.connection.on("open",function(){
 })
 
 app.use(cors())
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json())
 
 app.get("/", function(req,res){
     res.writeHead(200, {"Content-Type": "text/html"})
@@ -51,17 +55,35 @@ app.get("/user/:id", function(req,res){
     res.status(200).json(selectUser[0])
 })
 
-app.get("/user/add/:nom/:prenom/:age", function(req,res){
-    const {nom, prenom, age} = req.params
+app.get("/user", async function(req,res){
     
-    userModel.create({
-        nom,
-        prenom,
-        age
-    })
-
-    res.status(201).json()
+    res.status(200).json({id:datas["_id"]})
 })
 
+app.post("/user", async function(req,res){
+    const {nom, prenom, age, category} = req.body
+    console.log(req.body)
+    const datas = await userModel.create({
+        nom,
+        prenom,
+        age,
+        category
+    })
+    res.status(201).json({id:datas["_id"]})
+})
+
+app.put("/user/:id", async function(req,res){
+   // La modification d'un utilisateur
+})
+
+app.delete("/user/:id", async function(req,res){
+   // La suppression
+})
+
+app.get("/category", async function(req,res){
+    categoryModel.find({}, function(err, categories){
+        res.status(200).json(categories)
+    })
+})
 app.listen(3010)
 
