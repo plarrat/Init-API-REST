@@ -1,6 +1,5 @@
 const express = require("express")
 const app = express()
-const users = require("./schemas/users")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const userModel = require("./schemas/users")
