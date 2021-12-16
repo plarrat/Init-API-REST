@@ -7,11 +7,11 @@ const userModel = require("./schemas/users")
 const db = mongoose.connect("mongodb://localhost/initMongo",{useNewUrlParser:true})
 mongoose.connection.on("open",function(){
     console.log("Connexion MongoDB reussie")
-    userModel.create({
-        nom:"Uzumaki",
-        prenom:"Naruto",
-        age:20
-    })
+    // userModel.create({
+    //     nom:"Uzumaki",
+    //     prenom:"Naruto",
+    //     age:20
+    // })
 })
 
 app.use(cors())
@@ -49,6 +49,18 @@ app.get("/user/:id", function(req,res){
     }
         
     res.status(200).json(selectUser[0])
+})
+
+app.get("/user/add/:nom/:prenom/:age", function(req,res){
+    const {nom, prenom, age} = req.params
+    
+    userModel.create({
+        nom,
+        prenom,
+        age
+    })
+
+    res.status(201).json()
 })
 
 app.listen(3010)
