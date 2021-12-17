@@ -5,13 +5,35 @@ const mongoose = require("mongoose")
 const userModel = require("./schemas/users")
 const bodyParser = require("body-parser")
 const categoryModel = require("./schemas/category")
-
+const {apiKey} = require("./package.json")
+const jwtLib = require("jsonwebtoken")
 const db = mongoose.connect("mongodb://localhost/initMongo",{useNewUrlParser:true})
+const {jwtSecret} = require("./package.json")
 
 
-// app.use(cors())
+
+
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
+// app.use((req,res,next)=>{
+//     if(!req.headers["x-api-key"] && req.headers["x-api-key"] !== apiKey)
+//         res.status(401).end("No Api Key")   
+//     return next()
+// })
+
+// app.use(async (req,res,next)=>{
+//     const jwt = req.headers.authentification.replace("Bearer ", "")
+//     const validity = await jwtLib.verify(jwt, jwtSecret)
+//     const expiredDate = validity.iat;
+//     const dateNow = Date.now()
+//     if(dateNow <= expiredDate)
+//         // console.log("Date expirée")
+//         res.status(401).end("Expired Token")
+//     return next();
+    
+    
+// })
 
 app.get("/", function(req,res){
     res.writeHead(200, {"Content-Type": "text/html"})
@@ -25,6 +47,7 @@ app.get("/page", function(req,res){
 
 app.get("/page/:numPage", function(req,res){
     const {numPage} = req.params
+
     res.writeHead(200, {"Content-Type": "text/html"})
     res.end(`<h1>Bienvenue Nodemon npm start sur la page numero : ${numPage}</h1>`)
 })
@@ -55,7 +78,7 @@ app.get("/user", async function(req,res){
 
 app.post("/user", async function(req,res){
     const {nom, prenom, age, category} = req.body
-    console.log(req.body)
+    
     const datas = await userModel.create({
         nom,
         prenom,
