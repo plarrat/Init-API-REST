@@ -7,16 +7,9 @@ const bodyParser = require("body-parser")
 const categoryModel = require("./schemas/category")
 
 const db = mongoose.connect("mongodb://localhost/initMongo",{useNewUrlParser:true})
-mongoose.connection.on("open",function(){
-    console.log("Connexion MongoDB reussie")
-    // userModel.create({
-    //     nom:"Uzumaki",
-    //     prenom:"Naruto",
-    //     age:20
-    // })
-})
 
-app.use(cors())
+
+// app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
 
