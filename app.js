@@ -85,5 +85,5 @@ app.get("/category", async function(req,res){
         res.status(200).json(categories)
     })
 })
-app.listen(3010)
 
+module.exports = app
